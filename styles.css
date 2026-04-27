@@ -16,9 +16,13 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   color: var(--text);
   background: linear-gradient(180deg, #fff8f2 0%, #f7ebef 100%);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Pacifico', cursive;
 }
 
 button,
@@ -36,14 +40,49 @@ select {
 }
 
 .site-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) auto;
+  gap: 18px;
   align-items: center;
-  gap: 24px;
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 28px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   padding: 18px 24px;
+  box-shadow: var(--shadow);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.site-nav a {
+  display: inline-flex;
+  padding: 10px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: #fff;
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+  background: #fce6f0;
+  transform: translateY(-1px);
+}
+
+.site-footer {
+  padding: 18px 24px;
+  margin-top: 12px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #f3d8dc;
+  text-align: center;
+  color: var(--muted);
   box-shadow: var(--shadow);
 }
 
@@ -63,6 +102,11 @@ select {
   overflow: hidden;
   position: relative;
   background: #fff;
+}
+
+.logo-frame.has-logo {
+  border-color: rgba(145, 102, 165, 0.85);
+  background: #fff7fb;
 }
 
 .logo-frame img {

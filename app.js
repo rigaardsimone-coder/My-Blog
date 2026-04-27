@@ -458,7 +458,7 @@ function insertImage() {
     const file = e.target.files[0];
     if (!file) return;
     const src = await readFileAsDataURL(file);
-    insertHtmlAtCursor(`<img src="${src}" alt="Uploaded image" />`);
+    insertHtmlAtCursor(`<img src="${src}" alt="Uploaded image" loading="lazy" />`);
   });
   input.click();
 }
