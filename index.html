@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Cute Blog</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="branding">
+        <div class="logo-frame" id="logoFrame">
+          <img id="siteLogo" src="" alt="Logo" />
+          <span class="logo-placeholder">Logo</span>
+        </div>
+        <div>
+          <h1>My Cute Blog</h1>
+          <p class="subtitle">A dreamy journal for your posts, images, notes, and memories.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="primary-btn" id="newPostBtn">+ New Post</button>
+        <button id="openCustomizeBtn">Customize</button>
+      </div>
+    </header>
+
+    <section class="hero-banner" id="heroBanner">
+      <div class="hero-overlay"></div>
+      <div class="hero-copy">
+        <h2>Welcome to your aesthetic blog space</h2>
+        <p>Add images, videos, categories, notes and make every post adorable.</p>
+        <button class="tertiary-btn" id="newPostHeroBtn">Create your first post</button>
+      </div>
+    </section>
+
+    <main class="layout-grid">
+      <aside class="sidebar">
+        <div class="panel">
+          <h3>Post library</h3>
+          <div class="filter-group">
+            <input type="text" id="searchInput" placeholder="Search posts or tags" />
+          </div>
+          <div class="list-box" id="postList"></div>
+        </div>
+
+        <div class="panel mini-panel">
+          <h3>Categories</h3>
+          <div id="categoryList" class="tag-cloud"></div>
+        </div>
+
+        <div class="panel mini-panel">
+          <h3>Quick notes</h3>
+          <textarea id="quickNotes" placeholder="Write a mini note or reminder..."></textarea>
+          <button id="saveNotesBtn">Save Note</button>
+        </div>
+      </aside>
+
+      <section class="content-area">
+        <div class="panel post-view-panel" id="postViewPane">
+          <div class="post-meta" id="emptyState">
+            <h2>Start creating your blog.</h2>
+            <p>Use the button above to add posts, upload a banner, and customize the page.</p>
+          </div>
+          <article class="post-card hidden" id="postDisplay">
+            <div class="post-header">
+              <div>
+                <p class="meta-tag" id="postCategory"></p>
+                <h2 id="postTitle"></h2>
+                <p class="meta-details"><span id="postDate"></span> · <span id="postLocation"></span></p>
+              </div>
+              <div class="post-actions">
+                <button id="editPostBtn">Edit</button>
+                <button id="deletePostBtn">Delete</button>
+              </div>
+            </div>
+            <div class="post-tags" id="postTags"></div>
+            <div class="post-content" id="postContent"></div>
+            <div class="attachment-panel" id="postAttachments"></div>
+            <div class="comment-panel">
+              <h3>Comments</h3>
+              <div id="commentList" class="comment-list"></div>
+              <div class="comment-form">
+                <input type="text" id="commentAuthor" placeholder="Your name" />
+                <textarea id="commentText" placeholder="Write a comment..."></textarea>
+                <button id="postCommentBtn">Add Comment</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="panel editor-panel hidden" id="editorPane">
+          <div class="editor-header">
+            <h2 id="editorTitle">New Post</h2>
+            <div class="editor-actions">
+              <button id="cancelEditBtn">Cancel</button>
+              <button class="primary-btn" id="savePostBtn">Save Post</button>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label>Title</label>
+              <input type="text" id="postTitleInput" placeholder="Post title" />
+            </div>
+            <div class="field-group">
+              <label>Category</label>
+              <input type="text" id="postCategoryInput" placeholder="Category" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label>Date</label>
+              <input type="date" id="postDateInput" />
+            </div>
+            <div class="field-group">
+              <label>Location</label>
+              <input type="text" id="postLocationInput" placeholder="Location or event" />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-group full-width">
+              <label>Tags</label>
+              <input type="text" id="postTagsInput" placeholder="Comma separated tags" />
+            </div>
+          </div>
+
+          <div class="toolbar" id="editorToolbar">
+            <button data-cmd="bold" title="Bold">B</button>
+            <button data-cmd="italic" title="Italic">I</button>
+            <button data-cmd="underline" title="Underline">U</button>
+            <button data-cmd="insertOrderedList" title="Numbered List">1.</button>
+            <button data-cmd="insertUnorderedList" title="Bullet List">•</button>
+            <button data-cmd="formatBlock" data-value="h2" title="Heading">H2</button>
+            <button data-cmd="formatBlock" data-value="h3" title="Subheading">H3</button>
+            <button data-cmd="formatBlock" data-value="blockquote" title="Quote">❝</button>
+            <select id="fontSelect" title="Font family">
+              <option value="">Font</option>
+              <option value="Arial">Arial</option>
+              <option value="Georgia">Georgia</option>
+              <option value="'Comic Sans MS', cursive, sans-serif">Comic Sans</option>
+              <option value="'Courier New', monospace">Courier</option>
+              <option value="'Lucida Handwriting', cursive">Handwritten</option>
+            </select>
+            <select id="colorSelect" title="Text color">
+              <option value="">Color</option>
+              <option value="#de6c92">Pink</option>
+              <option value="#6c83de">Purple</option>
+              <option value="#4d9f6f">Green</option>
+              <option value="#f0a84d">Amber</option>
+            </select>
+            <div class="color-buttons">
+              <button class="color-swatch" data-cmd="backColor" data-value="#fff176" title="Highlight Yellow"></button>
+              <button class="color-swatch" data-cmd="backColor" data-value="#ff9aa2" title="Highlight Pink"></button>
+              <button class="color-swatch" data-cmd="backColor" data-value="#c1e1c1" title="Highlight Mint"></button>
+              <button class="color-swatch" data-cmd="backColor" data-value="#b6d4fe" title="Highlight Blue"></button>
+            </div>
+          </div>
+
+          <div class="editor-tools">
+            <button id="insertImageBtn">Insert Image</button>
+            <button id="insertVideoBtn">Insert Video URL</button>
+            <button id="insertChecklistBtn">Insert Checklist</button>
+            <label class="file-upload">
+              Upload Attachment
+              <input type="file" id="attachmentInput" />
+            </label>
+          </div>
+
+          <div class="field-group">
+            <label>Post content</label>
+            <div id="postContentEditable" class="rich-editor" contenteditable="true" spellcheck="true"></div>
+          </div>
+
+          <div class="attachment-panel" id="editorAttachments"></div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="custom-panel hidden" id="settingsPane">
+      <div class="panel">
+        <div class="editor-header">
+          <h2>Customize page</h2>
+          <button id="closeCustomizeBtn">Close</button>
+        </div>
+        <div class="field-group">
+          <label>Site banner image</label>
+          <input type="file" id="bannerInput" accept="image/*" />
+        </div>
+        <div class="field-group">
+          <label>Logo image</label>
+          <input type="file" id="logoInput" accept="image/*" />
+        </div>
+        <div class="field-group">
+          <label>Background image</label>
+          <input type="file" id="backgroundInput" accept="image/*" />
+        </div>
+        <div class="field-group">
+          <label>Page title</label>
+          <input type="text" id="siteTitleInput" placeholder="My Cute Blog" />
+        </div>
+        <div class="field-group">
+          <label>Page subtitle</label>
+          <input type="text" id="siteSubtitleInput" placeholder="A dreamy journal for your posts..." />
+        </div>
+        <button class="primary-btn" id="saveSettingsBtn">Save Settings</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="context-menu hidden" id="editorContextMenu">
+    <button data-cmd="bold">Bold</button>
+    <button data-cmd="italic">Italic</button>
+    <button data-cmd="underline">Underline</button>
+    <button data-cmd="formatBlock" data-value="h3">Heading</button>
+    <button data-cmd="backColor" data-value="#fff176">Highlight</button>
+    <button data-cmd="foreColor" data-value="#de6c92">Color</button>
+  </div>
+
+  <div class="snackbar hidden" id="snackbar"></div>
+  <script src="app.js"></script>
+</body>
+</html>
