@@ -1,0 +1,15 @@
+{
+  "name": "My Cute Blog",
+  "short_name": "Cute Blog",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff8f2",
+  "theme_color": "#f7e5f0",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
