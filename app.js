@@ -2,6 +2,8 @@ const state = {
   selectedPostId: null,
   posts: [],
   editorAttachments: [],
+  searchQuery: '',
+  categoryFilter: '',
   settings: {
     title: 'My Cute Blog',
     subtitle: 'A dreamy journal for your posts, images, and memories.',
@@ -45,6 +47,7 @@ const dom = {
   postLocationInput: document.getElementById('postLocationInput'),
   postTagsInput: document.getElementById('postTagsInput'),
   postContentEditable: document.getElementById('postContentEditable'),
+  searchInput: document.getElementById('searchInput'),
   editorToolbar: document.getElementById('editorToolbar'),
   fontSelect: document.getElementById('fontSelect'),
   colorSelect: document.getElementById('colorSelect'),
@@ -110,6 +113,18 @@ function bindEvents() {
   dom.cancelEditBtn.addEventListener('click', closeEditor);
   dom.savePostBtn.addEventListener('click', savePost);
   dom.postCommentBtn.addEventListener('click', addComment);
+  dom.searchInput.addEventListener('input', () => {
+    state.searchQuery = dom.searchInput.value.trim().toLowerCase();
+    renderPostList();
+  });
+  dom.categoryList.addEventListener('click', (event) => {
+    const categoryButton = event.target.closest('[data-category]');
+    if (!categoryButton) return;
+    const category = categoryButton.dataset.category;
+    state.categoryFilter = state.categoryFilter === category ? '' : category;
+    renderCategories();
+    renderPostList();
+  });
   dom.editPostBtn.addEventListener('click', () => openEditor(state.posts.find((p) => p.id === state.selectedPostId)));
   dom.deletePostBtn.addEventListener('click', deleteCurrentPost);
 
@@ -209,11 +224,25 @@ function applyTheme() {
 
 function renderPostList() {
   dom.postList.innerHTML = '';
-  if (state.posts.length === 0) {
-    dom.postList.innerHTML = '<p class="muted">No posts yet. Create one to begin your cute blog.</p>';
+  const filteredPosts = state.posts
+    .filter((post) => {
+      const matchesSearch = state.searchQuery
+        ? [post.title, post.category, post.location, ...(post.tags || [])]
+            .filter(Boolean)
+            .some((value) => value.toLowerCase().includes(state.searchQuery))
+        : true;
+      const matchesCategory = state.categoryFilter ? post.category === state.categoryFilter : true;
+      return matchesSearch && matchesCategory;
+    })
+    .slice()
+    .reverse();
+
+  if (filteredPosts.length === 0) {
+    dom.postList.innerHTML = `<p class="muted">No posts match${state.categoryFilter ? ` category “${escapeHtml(state.categoryFilter)}”` : ''}${state.searchQuery ? ` or search “${escapeHtml(state.searchQuery)}”` : ''}.</p>`;
     return;
   }
-  state.posts.slice().reverse().forEach((post) => {
+
+  filteredPosts.forEach((post) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'post-item' + (post.id === state.selectedPostId ? ' active' : '');
@@ -229,7 +258,10 @@ function renderPostList() {
 function renderCategories() {
   const categories = [...new Set(state.posts.map((post) => post.category).filter(Boolean))];
   dom.categoryList.innerHTML = categories.length
-    ? categories.map((category) => `<span>${escapeHtml(category)}</span>`).join('')
+    ? categories
+        .sort()
+        .map((category) => `<span class="category-chip${state.categoryFilter === category ? ' active' : ''}" data-category="${escapeHtml(category)}">${escapeHtml(category)}</span>`)
+        .join('')
     : '<span>No categories yet</span>';
 }
 

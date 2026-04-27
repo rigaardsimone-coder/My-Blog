@@ -251,6 +251,18 @@ textarea {
   background: #fdf3f5;
   border: 1px solid #f6d7dc;
   border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tag-cloud span:hover {
+  transform: translateY(-1px);
+}
+
+.category-chip.active {
+  background: #d88fa2;
+  border-color: #c26986;
+  color: white;
 }
 
 .post-view-panel {
